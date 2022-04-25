@@ -1,4 +1,4 @@
-﻿<title>Two Column 2 - Minimaxing by HTML5 UP</title>
+﻿@using NewsSite.Service
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 @if (ViewBag.Title != null)
@@ -7,7 +7,7 @@
 }
 else
 {
-    <title>Новостной сайт</title>
+    <title>@Config.CompanyName</title>
 }
 @if (ViewBag.Description != null)
 {
