@@ -17,7 +17,7 @@ namespace NewsSite.Models.ViewComponents
         /// <summary>
         /// Initializes a new instance of the <see cref="SidebarViewComponent"/> class.
         /// </summary>
-        /// <param name="context">DB context.</param>
+        /// <param name="dataManager">DataManager to get access to DB.</param>
         public SidebarViewComponent(DataManager dataManager)
         {
             this.dataManager = dataManager;

@@ -9,17 +9,31 @@ using NewsSite.Models;
 
 namespace NewsSite.Controllers
 {
+    /// <summary>
+    /// Account controller class for authorization.
+    /// </summary>
     [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        /// </summary>
+        /// <param name="userManager">User Manager.</param>
+        /// <param name="signInManager">SignIn Manager</param>
         public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
 
+        /// <summary>
+        /// Calling of login interface.
+        /// </summary>
+        /// <param name="returnUrl">Url to return after login.</param>
+        /// <returns>View for login.</returns>
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
@@ -27,6 +41,12 @@ namespace NewsSite.Controllers
             return View(new LoginViewModel());
         }
 
+        /// <summary>
+        /// Authentication.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="retunUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string retunUrl)

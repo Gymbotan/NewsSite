@@ -8,17 +8,29 @@ using System.Threading.Tasks;
 
 namespace NewsSite.Service
 {
+    /// <summary>
+    /// Admin authorization class.
+    /// </summary>
     public class AdminAreaAuthorization : IControllerModelConvention
     {
         private readonly string area;
         private readonly string policy;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AdminAreaAuthorization"/> class.
+        /// </summary>
+        /// <param name="area">Area where admin has access.</param>
+        /// <param name="policy">Authorization policy.</param>
         public AdminAreaAuthorization(string area, string policy)
         {
             this.area = area;
             this.policy = policy;
         }
 
+        /// <summary>
+        /// If a controller has AreaAttributes, we add Filter to the controller. In that case - AuthorizeFilter.
+        /// </summary>
+        /// <param name="controller">Controller.</param>
         public void Apply(ControllerModel controller)
         {
             if (controller.Attributes.Any(a =>
