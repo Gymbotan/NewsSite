@@ -1,4 +1,4 @@
-﻿@model IQueryable<ServiceItem>
+﻿@model IQueryable<Article>
 @{
     string strTitle = "Панель администратора";
     ViewBag.Title = strTitle;
@@ -7,14 +7,14 @@
 <div>
     <h2>@strTitle</h2>
     <div>
-        <h3>Наши услуги</h3>
+        <h3>Все новости</h3>
         <div class="div-box">
-            <a asp-area="Admin" asp-controller="ServiceItems" asp-action="Edit" asp-route-id="">Добавить услугу</a>
+            <a asp-area="Admin" asp-controller="ServiceItems" asp-action="Edit" asp-route-id="">Добавить новость</a>
         </div>
         @if (Model.Any())
         {
             <div>
-                @foreach (ServiceItem entity in Model)
+                @foreach (Article entity in Model)
                 {
                     <div>
                         <a asp-area="Admin" asp-controller="ServiceItems" asp-action="Edit" asp-route-id="@entity.Id">редактировать</a>
@@ -35,7 +35,7 @@
     <div class="div-box">
         <h3>Редактировать страницы сайта</h3>
         <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="PageIndex">Главная</a>
-        <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="PageServices">Наши услуги</a>
+        <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="PageServices">Все новости</a>
         <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="PageContacts">Контакты</a>
     </div>
     <div class="div-box">

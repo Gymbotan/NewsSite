@@ -33,7 +33,7 @@ namespace NewsSite
             Configuration.Bind("Project", new Config());
 
             services.AddTransient<ITextFieldsRepository, EFTextFieldsRepository>();
-            services.AddTransient<IServiceItemsRepository, EFServiceItemsRepository>();
+            services.AddTransient<IArticlesRepository, EFArticlesRepository>();
             services.AddTransient<DataManager>();
 
             services.AddDbContext<AppDbContext>(x => x.UseSqlServer(Config.ConnectionString));

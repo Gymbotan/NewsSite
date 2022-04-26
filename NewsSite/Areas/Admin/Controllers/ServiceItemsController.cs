@@ -25,12 +25,12 @@ namespace NewsSite.Areas.Admin.Controllers
 
         public IActionResult Edit(Guid id)
         {
-            var entity = id == default ? new ServiceItem() : dataManager.ServiceItems.GetServiceItemById(id);
+            var entity = id == default ? new Article() : dataManager.Articles.GetArticleById(id);
             return View(entity);
         }
 
         [HttpPost]
-        public IActionResult Edit(ServiceItem model, IFormFile titleImageFile)
+        public IActionResult Edit(Article model, IFormFile titleImageFile)
         {
             if (ModelState.IsValid)
             {
@@ -42,7 +42,7 @@ namespace NewsSite.Areas.Admin.Controllers
                         titleImageFile.CopyTo(stream);
                     }
                 }
-                dataManager.ServiceItems.SaveServiceItem(model);
+                dataManager.Articles.SaveArticle(model);
                 return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).CutController());
             }
             return View(model);
@@ -51,7 +51,7 @@ namespace NewsSite.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Delete(Guid id)
         {
-            dataManager.ServiceItems.DeleteServiceItem(id);
+            dataManager.Articles.DeleteArticle(id);
             return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).CutController());
         }
     }

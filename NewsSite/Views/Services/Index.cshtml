@@ -1,4 +1,4 @@
-﻿@model IQueryable<ServiceItem>
+﻿@model IQueryable<Article>
 @{
     TextField textField = ViewBag.TextField;
 
@@ -11,7 +11,7 @@
     @if (Model.Any())
        {
            <ul class="big-image-list">
-                @foreach(ServiceItem entity in Model)
+                @foreach(Article entity in Model)
                 {
                     <li>
                         <a asp-area="" asp-controller="Services" asp-action="Index" asp-route-id="@entity.Id">

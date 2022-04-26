@@ -19,7 +19,7 @@ namespace NewsSite.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View(dataManager.ServiceItems.GetServiceItems());
+            return View(dataManager.Articles.GetArticles());
         }
     }
 }

@@ -16,7 +16,7 @@ namespace NewsSite.Domain
 
         public DbSet<TextField> TextFields { get; set; }
 
-        public DbSet<ServiceItem> ServiceItems { get; set; }
+        public DbSet<Article> Articles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

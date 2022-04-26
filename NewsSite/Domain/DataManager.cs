@@ -9,12 +9,12 @@ namespace NewsSite.Domain
     public class DataManager
     {
         public ITextFieldsRepository TextFields { get; set; }
-        public IServiceItemsRepository ServiceItems { get; set; }
+        public IArticlesRepository Articles { get; set; }
 
-        public DataManager (ITextFieldsRepository textFieldsRepository, IServiceItemsRepository serviceItemsRepository)
+        public DataManager (ITextFieldsRepository textFieldsRepository, IArticlesRepository ArticlesRepository)
         {
             this.TextFields = textFieldsRepository;
-            this.ServiceItems = serviceItemsRepository;
+            this.Articles = ArticlesRepository;
         }
     }
 }

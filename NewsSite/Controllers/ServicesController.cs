@@ -20,11 +20,11 @@ namespace NewsSite.Controllers
         {
             if (id != default)
             {
-                return View("Show", dataManager.ServiceItems.GetServiceItemById(id));
+                return View("Show", dataManager.Articles.GetArticleById(id));
             }
 
             ViewBag.TextField = dataManager.TextFields.GetTextFieldByCodeWord("PageServices");
-            return View(dataManager.ServiceItems.GetServiceItems());
+            return View(dataManager.Articles.GetArticles());
         }
     }
 }

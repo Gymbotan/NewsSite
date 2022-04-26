@@ -1,1 +1,5 @@
-﻿!!!Sidebar
+﻿<div class="col-4 col-12-medium">
+    <cache expires-after="@TimeSpan.FromMinutes(3)">
+        @(await Component.InvokeAsync<SidebarViewComponent>())
+    </cache>
+</div>
