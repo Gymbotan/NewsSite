@@ -117,31 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MetaDescription" xml:space="preserve">
-    <value>МетаОписание</value>
+  <data name="Enter" xml:space="preserve">
+    <value>Enter</value>
   </data>
-  <data name="MetaKeywords" xml:space="preserve">
-    <value>МетаКлючевыеСлова</value>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
   </data>
-  <data name="MetaTitle" xml:space="preserve">
-    <value>МетаЗаголовок</value>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
   </data>
-  <data name="RecordEditing" xml:space="preserve">
-    <value>Редактировать запись</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Сохранить</value>
-  </data>
-  <data name="Subtitle" xml:space="preserve">
-    <value>Подзаголовок (Краткое описание)</value>
-  </data>
-  <data name="Text" xml:space="preserve">
-    <value>Содержание</value>
+  <data name="RememberMe" xml:space="preserve">
+    <value>RememberMe</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Название</value>
-  </data>
-  <data name="TitleImagePath" xml:space="preserve">
-    <value>Путь к рисунку</value>
+    <value>Login to personal account</value>
   </data>
 </root>

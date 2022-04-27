@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NewsSite.Domain;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace NewsSite.Controllers
             this.dataManager = dataManager;
         }
 
+        [Authorize]
         /// <summary>
         /// Show main (Index) page.
         /// </summary>

@@ -1,0 +1,9 @@
+﻿@inject IViewLocalizer localizer
+<div>
+    <form asp-area="" asp-controller="Account" asp-action="Register">
+        <input type="submit" value="@localizer["Register"]" />
+    </form>
+    <form asp-area="" asp-controller="Account" asp-action="Login">
+        <input type="submit" value="@localizer["Login"]" />
+    </form>
+</div>

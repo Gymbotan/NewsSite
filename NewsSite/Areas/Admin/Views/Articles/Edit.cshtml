@@ -18,39 +18,39 @@
 
         <div asp-validation-summary="All"></div>
         <div class="div-box">
-            <label asp-for="Title"></label>
+            <label asp-for="Title">@localizer["Title"]</label>
             <input asp-for="Title" />
             <span asp-validation-for="Title"></span>
         </div>
         <div class="div-box">
-            <label asp-for="Subtitle"></label>
+            <label asp-for="Subtitle">@localizer["Subtitle"]</label>
             <input asp-for="Subtitle" />
             <span asp-validation-for="Subtitle"></span>
         </div>
         <div class="div-box">
-            <label asp-for="Text"></label>
+            <label asp-for="Text">@localizer["Text"]</label>
             <textarea asp-for="Text"></textarea>
             <span asp-validation-for="Text"></span>
         </div>
         <div class="div-box">
-            <label asp-for="TitleImagePath"></label>
+            <label asp-for="TitleImagePath">@localizer["TitleImagePath"]</label>
             <input type="file" name="titleImageFile" id="titleImageFile" />
             <div>
                 <img class="img-block" src="~/images/@Model.TitleImagePath" />
             </div>
         </div>
         <div class="div-box">
-            <label asp-for="MetaTitle"></label>
+            <label asp-for="MetaTitle">@localizer["MetaTitle"]</label>
             <input asp-for="MetaTitle" />
             <span asp-validation-for="MetaTitle"></span>
         </div>
         <div class="div-box">
-            <label asp-for="MetaDescription"></label>
+            <label asp-for="MetaDescription">@localizer["MetaDescription"]</label>
             <input asp-for="MetaDescription" />
             <span asp-validation-for="MetaDescription"></span>
         </div>
         <div class="div-box">
-            <label asp-for="MetaKeywords"></label>
+            <label asp-for="MetaKeywords">@localizer["MetaKeywords"]</label>
             <input asp-for="MetaKeywords" />
             <span asp-validation-for="MetaKeywords"></span>
         </div>

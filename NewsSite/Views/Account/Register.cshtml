@@ -1,0 +1,33 @@
+﻿@model RegisterViewModel
+@inject IViewLocalizer localizer
+<div>
+    <h1>@localizer["Title"]</h1>
+    <div class="div-box">
+        <form asp-area="" asp-controller="Account" asp-action="Register" method="post" asp-route-returnUrl="@ViewBag.returnUrl">
+            <div asp-validation-summary="All"></div>
+            <div>
+                <label asp-for="UserName">@localizer["Login"]</label>
+                <input asp-for="UserName" />
+                <span asp-validation-for="UserName"></span>
+            </div>
+            <div>
+                <label asp-for="Email">@localizer["Email"]</label>
+                <input asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div>
+                <label asp-for="Password">@localizer["Password"]</label>
+                <input asp-for="Password" autocomplete="new-password"/>
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div>
+                <label asp-for="PasswordConfirm">@localizer["PasswordConfirm"]</label>
+                <input asp-for="PasswordConfirm" />
+                <span asp-validation-for="PasswordConfirm"></span>
+            </div>
+            <div>
+                <input type="submit" value="@localizer["Register"]" />
+            </div>
+        </form>
+    </div>
+</div>

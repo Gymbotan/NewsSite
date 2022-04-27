@@ -14,7 +14,7 @@ namespace NewsSite.Domain.Entities
         /// <summary>
         /// Title of the article.
         /// </summary>
-        [Required(ErrorMessage ="Заполните название услуги")]       
+        [Required(ErrorMessage ="Заполните название новости")]       
         [Display(Name = "Заголовок")]
         public override string Title { get; set; }
 
@@ -22,6 +22,7 @@ namespace NewsSite.Domain.Entities
         /// Subtitle of the article.
         /// </summary>
         [Display(Name = "Подзаголовок (Краткое описание)")]
+        [MinLength(7, ErrorMessage = "Подзаголовок слишком короткий (минимум 7 символов)")]
         public override string Subtitle { get; set; }
 
         /// <summary>

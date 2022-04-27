@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using NewsSite.Domain;
@@ -34,6 +35,7 @@ namespace NewsSite.Controllers
             return View(dataManager.TextFields.GetTextFieldByCodeWord("PageIndex"));
         }
 
+        [Authorize]
         /// <summary>
         /// Show contacts page.
         /// </summary>

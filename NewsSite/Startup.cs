@@ -66,7 +66,7 @@ namespace NewsSite
             services.AddIdentity<IdentityUser, IdentityRole>(opts =>
             {
                 opts.User.RequireUniqueEmail = true;
-                opts.Password.RequiredLength = 6;
+                opts.Password.RequiredLength = 4;
                 opts.Password.RequireNonAlphanumeric = false;
                 opts.Password.RequireUppercase = false;
                 opts.Password.RequireLowercase = false;
@@ -115,16 +115,10 @@ namespace NewsSite
             app.UseAuthentication();
             app.UseAuthorization();
 
+            // Add localization
             app.UseRequestLocalization(app.ApplicationServices.
                 GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
-
-            // Register supported cultures
-            //var supportedCultures = new[] { "ru", "en" };
-            //var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
-            //    .AddSupportedCultures(supportedCultures)
-            //    .AddSupportedUICultures(supportedCultures);
-            //app.UseRequestLocalization(localizationOptions);
-
+                        
             // Registering endpoints (routes)
             app.UseEndpoints(endpoints =>
             {

@@ -44,12 +44,12 @@ namespace NewsSite.Controllers
         /// <summary>
         /// Authentication.
         /// </summary>
-        /// <param name="model"></param>
-        /// <param name="retunUrl"></param>
+        /// <param name="model">Login data.</param>
+        /// <param name="returnUrl">Return URL.</param>
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model, string retunUrl)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if(ModelState.IsValid)
             {
@@ -57,15 +57,75 @@ namespace NewsSite.Controllers
                 if (user != null)
                 {
                     await signInManager.SignOutAsync();
-                    Microsoft.AspNetCore.Identity.SignInResult result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+                    var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                     if (result.Succeeded)
                     {
-                        return Redirect(retunUrl ?? "/");
+                        return Redirect(returnUrl ?? "/");
                     }
                 }
 
                 ModelState.AddModelError(nameof(LoginViewModel.UserName), "Неверный логин или пароль");
             }
+            return View(model);
+        }
+        
+        [AllowAnonymous]
+        public IActionResult Register(string returnUrl)
+        {
+            ViewBag.returnUrl = returnUrl;
+            return View(new RegisterViewModel());
+        }
+
+        /// <summary>
+        /// Registration of a new User
+        /// </summary>
+        /// <param name="model">Registering data.</param>
+        /// <param name="returnUrl">Return URL.</param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                // Checking if both inputed passwords are equal
+                if (!model.Password.Equals(model.PasswordConfirm))
+                {
+                    ModelState.AddModelError(nameof(LoginViewModel.Password), "Пароль и его подтверждение не совпадают");
+                    return View(model);
+                }
+
+                // Create new IdentityUser based on the RegisterViewModel
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = model.UserName,
+                    NormalizedUserName = model.UserName.ToUpper(),
+                    Email = model.Email,
+                    EmailConfirmed = true,
+                };
+
+                // Attempt to write this user to a DataBase
+                var result = await userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    // Give to this created user a role "user"
+                    await userManager.AddToRoleAsync(user, "user");
+
+                    // If someone already is signed in - sign him out
+                    await signInManager.SignOutAsync();
+
+                    // Sign in a new user.
+                    var signInResult = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                    if (signInResult.Succeeded)
+                    {
+                        return Redirect(returnUrl ?? "/");
+                    }
+                }
+
+                return Redirect(returnUrl ?? "/");
+            }
+
             return View(model);
         }
 
@@ -74,6 +134,11 @@ namespace NewsSite.Controllers
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }

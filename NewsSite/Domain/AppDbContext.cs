@@ -11,6 +11,8 @@ namespace NewsSite.Domain
 {
     /// <summary>
     /// AppDbContext class for connection to DataBase using Entity Framework.
+    /// Inheritance from IdentityDbContext allows to automatically have tables for 
+    /// Identity entities: IdentityUsers, IdentityRoles, etc.
     /// </summary>
     public class AppDbContext : IdentityDbContext<IdentityUser>
     {
@@ -38,6 +40,7 @@ namespace NewsSite.Domain
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            // Filling a role in a DB
             builder.Entity<IdentityRole>().HasData(new IdentityRole
             {
                 Id = "c96286ab-394c-45d2-a16b-8a19e1523ed0",
@@ -45,6 +48,14 @@ namespace NewsSite.Domain
                 NormalizedName = "ADMIN"
             });
 
+            //Later manually added new IdentityRole
+            //{
+            //    Id = "967df95c-cd68-4f3d-a9a0-eb25d058beb5",
+            //    Name = "user",
+            //    NormalizedName = "USER"
+            //}
+
+            // Filling a user in a DB
             builder.Entity<IdentityUser>().HasData(new IdentityUser
             {
                 Id = "a7ba3363-2d50-4bf4-ba61-6b7161d429c8",
@@ -57,12 +68,14 @@ namespace NewsSite.Domain
                 SecurityStamp = string.Empty
             });
 
+            // Create a connection between a user and a role.
             builder.Entity<IdentityUserRole<string>>().HasData(new Microsoft.AspNetCore.Identity.IdentityUserRole<string>
             {
                 RoleId = "c96286ab-394c-45d2-a16b-8a19e1523ed0",
                 UserId = "a7ba3363-2d50-4bf4-ba61-6b7161d429c8"
             });
 
+            // Add some entities of TextFields in a DB
             builder.Entity<TextField>().HasData(new TextField
             {
                 Id = new Guid("f979c12f-2c29-4f85-8dc6-2e08b7220ed4"),
