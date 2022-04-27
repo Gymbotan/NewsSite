@@ -1,15 +1,16 @@
 ﻿@model IQueryable<Article>
+@inject IViewLocalizer localizer
 @{
-    string strTitle = "Панель администратора";
-    ViewBag.Title = strTitle;
+//string strTitle = "Панель администратора";
+//ViewBag.Title = strTitle;
 }
 
 <div>
-    <h2>@strTitle</h2>
+    <h2>@localizer["PageTitle"]</h2>
     <div>
-        <h3>Все новости</h3>
+        <h3>@localizer["AllNews"]</h3>
         <div class="div-box">
-            <a asp-area="Admin" asp-controller="ServiceItems" asp-action="Edit" asp-route-id="">Добавить новость</a>
+            <a asp-area="Admin" asp-controller="Articles" asp-action="Edit" asp-route-id="">@localizer["AddArticle"]</a>
         </div>
         @if (Model.Any())
         {
@@ -17,14 +18,14 @@
                 @foreach (Article entity in Model)
                 {
                     <div>
-                        <a asp-area="Admin" asp-controller="ServiceItems" asp-action="Edit" asp-route-id="@entity.Id">редактировать</a>
+                        <a asp-area="Admin" asp-controller="Articles" asp-action="Edit" asp-route-id="@entity.Id">@localizer["Edit"]</a>
                         |
-                        <form style="display: inline-block;" id="form-@entity.Id" asp-area="Admin" asp-controller="ServiceItems" asp-action="Delete" method="post">
+                        <form style="display: inline-block;" id="form-@entity.Id" asp-area="Admin" asp-controller="Articles" asp-action="Delete" method="post">
                             <input type="hidden" name="id" value="@entity.Id">
-                            <a href="#" onclick="document.getElementById('form-@entity.Id').submit();">удалить</a>
+                            <a href="#" onclick="document.getElementById('form-@entity.Id').submit();">@localizer["Delete"]</a>
                         </form>
                         |
-                        <a asp-area="" asp-controller="Services" asp-action="Index" asp-route-id="@entity.Id">
+                        <a asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@entity.Id">
                             @($"{entity.Title}")
                         </a>
                     </div>
@@ -33,14 +34,14 @@
         }
     </div>
     <div class="div-box">
-        <h3>Редактировать страницы сайта</h3>
-        <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="PageIndex">Главная</a>
-        <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="PageServices">Все новости</a>
-        <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="PageContacts">Контакты</a>
+        <h3>@localizer["MainPagesEditing"]</h3>
+        <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="PageIndex">@localizer["HomePage"]</a>
+        <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="PageServices">@localizer["AllNews"]</a>
+        <a asp-area="Admin" asp-controller="TextFields" asp-action="Edit" asp-route-codeWord="PageContacts">@localizer["Contacts"]</a>
     </div>
     <div class="div-box">
         <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
-            <input type="submit" value="Выйти" />
+            <input type="submit" value=@localizer["Exit"] />
         </form>
     </div>
 </div>

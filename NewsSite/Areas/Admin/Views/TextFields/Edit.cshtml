@@ -1,13 +1,13 @@
 ﻿@model TextField
+@inject IViewLocalizer localizer
 @{
-    string strTitle = "Редактировать запись";
-    ViewBag.Title = strTitle;
+    //ViewBag.Title = strTitle;
 }
 
 <script src="~/js/ckeditor/ckeditor.js"></script>
 
 <div>
-    <h2>@strTitle</h2>
+    <h2>@localizer["RecordEditing"]</h2>
     <div>
         <form asp-area="Admin" asp-controller="TextFields" asp-action="Edit" method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="Id" />
@@ -40,7 +40,7 @@
                 <input asp-for="MetaKeywords" />
                 <span asp-validation-for="MetaKeywords"></span>
             </div>
-            <input type="submit" value="Сохранить" />
+            <input type="submit" value=@localizer["Save"] />
         </form>
     </div>
 </div>

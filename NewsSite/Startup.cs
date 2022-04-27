@@ -15,6 +15,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 
 namespace NewsSite
 {
@@ -30,12 +33,33 @@ namespace NewsSite
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            // Bind ojbect "Project" from appsettings.json with object of Config class
             Configuration.Bind("Project", new Config());
 
+            // Register localization in services container
+            services.AddLocalization(opts => {opts.ResourcesPath = "Resources";});
+            services.AddMvc()
+                .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
+            services.Configure<RequestLocalizationOptions>(
+                opts =>
+                {
+                    var supportedCultures = new List<CultureInfo>
+                    {
+                        new CultureInfo("ru"),
+                        new CultureInfo("en")
+                    };
+                    opts.DefaultRequestCulture = new RequestCulture("ru");
+                    opts.SupportedCultures = supportedCultures;
+                    opts.SupportedUICultures = supportedCultures;
+                });
+
+            // Fill a DI-container
             services.AddTransient<ITextFieldsRepository, EFTextFieldsRepository>();
             services.AddTransient<IArticlesRepository, EFArticlesRepository>();
             services.AddTransient<DataManager>();
 
+            // Connect to DataBase
             services.AddDbContext<AppDbContext>(x => x.UseSqlServer(Config.ConnectionString));
 
             // Configuring of identity system
@@ -86,9 +110,20 @@ namespace NewsSite
 
             app.UseStaticFiles();
 
+            // Add authentication/authorization. Between UseRouting() and UseEndpoints() !!!
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseRequestLocalization(app.ApplicationServices.
+                GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+
+            // Register supported cultures
+            //var supportedCultures = new[] { "ru", "en" };
+            //var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+            //    .AddSupportedCultures(supportedCultures)
+            //    .AddSupportedUICultures(supportedCultures);
+            //app.UseRequestLocalization(localizationOptions);
 
             // Registering endpoints (routes)
             app.UseEndpoints(endpoints =>
