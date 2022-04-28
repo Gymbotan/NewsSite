@@ -42,5 +42,11 @@ namespace NewsSite.Domain.Repositories.Interfaces
         /// </summary>
         /// <param name="id">Id of the article.</param>
         void DeleteArticle(Guid id);
+
+        /// <summary>
+        /// Get amount of articles in the database.
+        /// </summary>
+        /// <returns>Amount of articles.</returns>
+        public int GetAmountOfArticles();
     }
 }

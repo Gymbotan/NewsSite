@@ -1,4 +1,5 @@
 ﻿@model IQueryable<Article>
+@inject IViewLocalizer localizer
 @{
     TextField textField = ViewBag.TextField;
 
@@ -12,18 +13,26 @@
 </div>
 <div>
     @if (Model.Any())
-       {
-           <ul class="big-image-list">
-                @foreach(Article entity in Model)
-                {
-                    <li>
-                        <a asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@entity.Id">
-                            <img src="~/images//@entity.TitleImagePath" alt="" class="left" />
-                        </a>
-                        <h4>@entity.Title</h4>
-                        <p>@entity.Subtitle</p>
-                    </li>
-                }
-           </ul>
-       }
+    {
+        <ul class="big-image-list">
+            @foreach (Article entity in Model)
+            {
+                <li>
+                    <a asp-area="" asp-controller="Articles" asp-action="Index" asp-route-id="@entity.Id">
+                        <img src="~/images//@entity.TitleImagePath" alt="" class="left" />
+                    </a>
+                    <h4>@entity.Title</h4>
+                    <p>@entity.Subtitle</p>
+                </li>
+            }
+        </ul>
+        @if (ViewBag.CurrentPageNumber > 0)
+        {
+            <a style="margin-right: 20pt" asp-area="" asp-controller="Articles" asp-action="Index" asp-route-num="@((ViewBag.CurrentPageNumber) - 1)">@localizer["Previous"]</a>
+        }
+        if (ViewBag.CurrentPageNumber < ViewBag.AmountOfPages)
+        {
+            <a asp-area="" asp-controller="Articles" asp-action="Index" asp-route-num="@((ViewBag.CurrentPageNumber) + 1 )">@localizer["Next"]</a>
+        }
+    }
 </div>

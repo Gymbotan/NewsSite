@@ -78,5 +78,14 @@ namespace NewsSite.Domain.Repositories.EntityFramework
         {
             return context.Articles.OrderByDescending(x => x.DateAdded).Take(amount);
         }
+
+        /// <summary>
+        /// Get amount of articles in the database.
+        /// </summary>
+        /// <returns>Amount of articles.</returns>
+        public int GetAmountOfArticles()
+        {
+            return context.Articles.Count();
+        }
     }
 }
