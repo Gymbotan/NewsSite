@@ -1,9 +1,16 @@
 ﻿@inject IViewLocalizer localizer
 <div>
-    <form asp-area="" asp-controller="Account" asp-action="Register">
-        <input type="submit" value="@localizer["Register"]" />
-    </form>
-    <form asp-area="" asp-controller="Account" asp-action="Login">
-        <input type="submit" value="@localizer["Login"]" />
-    </form>
+    @if (Context.Request.Cookies.ContainsKey("name") && !string.IsNullOrWhiteSpace(Context.Request.Cookies["name"]))
+    {
+        <form>
+
+            <label>@localizer["Text"]@Context.Request.Cookies["name"]</label>
+        </form>
+        <a asp-area="" asp-controller="Account" asp-action="Logout">@localizer["LogOut"]</a>
+    }
+    @if (Context.Request.Cookies.ContainsKey("name") && string.IsNullOrWhiteSpace(Context.Request.Cookies["name"]))
+    {
+        <a style="margin-right: 20pt" asp-area="" asp-controller="Account" asp-action="Register">@localizer["Register"]</a>
+        <a asp-area="" asp-controller="Account" asp-action="Login">@localizer["Login"]</a>
+    }
 </div>

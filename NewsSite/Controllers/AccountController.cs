@@ -60,6 +60,8 @@ namespace NewsSite.Controllers
                     var result = await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
                     if (result.Succeeded)
                     {
+                        Response.Cookies.Append("name", user.UserName);
+                        //ViewBag.CurrentUserName = userManager.GetUserName(User);
                         return Redirect(returnUrl ?? "/");
                     }
                 }
@@ -119,6 +121,8 @@ namespace NewsSite.Controllers
                     var signInResult = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
                     if (signInResult.Succeeded)
                     {
+                        Response.Cookies.Append("name", user.UserName);
+                        //ViewBag.CurrentUserName = userManager.GetUserName(User);
                         return Redirect(returnUrl ?? "/");
                     }
                 }
@@ -133,6 +137,8 @@ namespace NewsSite.Controllers
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
+            Response.Cookies.Append("name", string.Empty);
+            //ViewBag.CurrentUserName = String.Empty;
             return RedirectToAction("Index", "Home");
         }
 

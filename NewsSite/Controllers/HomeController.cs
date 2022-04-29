@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using NewsSite.Domain;
@@ -16,14 +17,16 @@ namespace NewsSite.Controllers
     public class HomeController : Controller
     {
         private readonly DataManager dataManager;
+        private readonly UserManager<IdentityUser> userManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HomeController"/> class.
         /// </summary>
         /// <param name="dataManager">DataManager to get access to DB.</param>
-        public HomeController(DataManager dataManager)
+        public HomeController(DataManager dataManager, UserManager<IdentityUser> userManager)
         {
             this.dataManager = dataManager;
+            this.userManager = userManager;
         }
 
         /// <summary>
@@ -32,6 +35,11 @@ namespace NewsSite.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
+            if (!string.IsNullOrWhiteSpace(userManager.GetUserName(User)))
+            {
+                Response.Cookies.Append("name", userManager.GetUserName(User));
+            }
+            //ViewBag.CurrentUserName = userManager.GetUserName(User);
             return View(dataManager.TextFields.GetTextFieldByCodeWord("PageIndex"));
         }
 
